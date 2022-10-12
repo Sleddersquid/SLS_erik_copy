@@ -8,7 +8,7 @@ cap.set(4, 480) # 4 -Height
 
 camera = True
 while camera == True:
-    frame = cap.read()
+    success, frame = cap.read()
 
     for code in decode(frame):
         print(code.type)
@@ -16,7 +16,6 @@ while camera == True:
 
     cv2.imshow("scan",frame)
     cv2.waitKey(0)
-    cv2.destroyAllWindows()
 
 
     
