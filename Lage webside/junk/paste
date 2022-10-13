@@ -1,0 +1,11 @@
+<!-- Insert Video-reader -->
+<!--
+    <div class="video_scanner">
+        <img src="{{url_for('video')}}" width="50%"/>
+    </div>
+-->
+<!--
+    <div>
+        <input type="file" accept="image/*" capture="camera" />
+    </div>
+    -->

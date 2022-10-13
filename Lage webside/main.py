@@ -50,9 +50,6 @@ def video():
     return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-@app.route("/", methods=["POST"])
-def upload_image():
-    file = request.files["file"]
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5010)
