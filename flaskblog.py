@@ -7,29 +7,11 @@ click on the website shown
 @author: aditi
 """
 
-from flask import Flask, render_template,url_for
-#from pyzbar.pyzbar import decode
+from flask import Flask, render_template,url_for,request
+from pyzbar.pyzbar import decode
+from PIL import Image
 #instantiated flask application
 app = Flask(__name__,template_folder='Template')
-
-
-posts = [
-    {'Creators' : 'Aditi Deshpande, Theo Magnor',
-     'title' : 'Post 1',
-     'content' : 'lorem ipsum',
-     'date_posted' : 'September 25 2022'
-     } ,
-    {
-     'Creators' : 'Hannes Weigel, Nathaneal',
-      'title' : 'Post 2',
-      'content' : 'lorem ipsum lorem ipsum',
-      'date_posted' : 'September 23 2022'
-     }
-    ]
-
-    
-
-
 
 #routes are what we type into our browser
 #adds additional functionality
@@ -38,7 +20,7 @@ posts = [
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('home.html',posts=posts)
+    return render_template('home.html')
 
 
 
@@ -47,6 +29,22 @@ def home():
 def about():
     return render_template('about.html',title='About')
 
+@app.route("/upload", methods=("POST", "GET"))
+def upload():
+    if request.method == "POST":
+        file = request.files['stud']
+        img = Image.open(file.stream)
+        print (type(file.stream))
+        decoded_img = decode(img)[0]
+        studnr = decoded_img.data
+        return redirect(url_for("user", usr=studnr))
+    else:
+        return render_template("upload.html")
+
+
+@app.route("/<usr>")
+def user(usr):
+    return f"<h1>{usr}</h1>"
 
 
 #running the app, debug is true so that we don't need to close web server and refresh to see changes 
