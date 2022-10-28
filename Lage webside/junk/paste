@@ -9,3 +9,17 @@
         <input type="file" accept="image/*" capture="camera" />
     </div>
     -->
+
+
+
+
+    @app.route("/upload", methods=["POST", "GET"])
+def upload():
+    if request.method == "POST":
+        file = request.files["stud"]
+        img = Image.open(file.stream)
+        decoded_img = decode(img)[0]
+        studnr = decoded_img.data
+        return redirect(url_for("user", usr=studnr))
+    else:
+	    return render_template("upload.html")

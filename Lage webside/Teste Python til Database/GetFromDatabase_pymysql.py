@@ -1,11 +1,12 @@
 import pymysql
+def connect_to_databse():
 
 # Connection to database
-database_SLS = "SpiceLogisticsSystems"
-db_user = "root"
-db_pwd = "password"
-php_host = "localhost/phpmyadmin/"
-php_port = 80
+    database_SLS = "SpiceLogisticsSystems"
+    db_user = "root"
+    db_pwd = "password"
+    php_host = "localhost/phpmyadmin/"
+    php_port = 80
 
 connection = pymysql.connect(
     host="localhost",
