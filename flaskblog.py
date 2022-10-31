@@ -28,7 +28,7 @@ def home():
 @app.route("/about")
 def about():
     return render_template('about.html',title='About')
-
+#upload page with barcode
 @app.route("/upload", methods=("POST", "GET"))
 def upload():
     if request.method == "POST":
