@@ -3,13 +3,15 @@ from flask import Flask, redirect, url_for, render_template, request
 import cv2
 from pyzbar.pyzbar import decode
 
+
 app=Flask(__name__)
 camera=cv2.VideoCapture(0)
 
-def generate_frames():
+
+def videofeed():
     while True:
             
-        ## read the camera frame
+        # read the camera frame
         success,frame=camera.read()
         if not success:
             print("camera fail")
@@ -18,6 +20,8 @@ def generate_frames():
                         
             for code in decode(frame):
                 print(code.data)
+                scaned_code = code.data
+                return scaned_code
 
         
             ret,buffer=cv2.imencode('.jpg',frame)
@@ -25,6 +29,7 @@ def generate_frames():
             
         yield(b'--frame\r\n'
             b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 
 @app.route("/", methods=["POST", "GET"])
 def login():
@@ -40,30 +45,27 @@ def login():
         return render_template("login.html")
 
 
-
 @app.route('/video')
 def video():
-    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(videofeed(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-#===
 @app.route("/<usr>", methods=["GET", "POST"])
 def user(usr):
     
     if request.method == 'POST':
-        if    request.form.get('VALUE1') == 'Låne':
-            pass # åpner camera og ber brukeren scanne utstyr
-        elif  request.form.get('VALUE2') == 'Levere':
-            pass # vise side med lån hvor man kan velge hva man vil levere tilbake
+        if    request.form.get('Låne') == 'Låne':
+            return render_template("loan.html") 
+        elif  request.form.get('Levere') == 'Levere':
+            pass 
         elif  request.form.get('Se lån') == 'Se lån':
-            return render_template("show_loans.html") # vise side med brukerens lån
+            return render_template("show_loans.html") 
             
     elif request.method == 'GET':
         return render_template('user.html', usr=usr)
     
     return render_template("index.html")
-#===
 
 
-if __name__=="__main__":
+if __name__ == "__main__" :
     app.run(debug=False)
