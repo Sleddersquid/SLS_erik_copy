@@ -3,10 +3,11 @@
 
   <body>
     <h1>Dine lån:</h1>
-    <div>
-
-    </div>
-            
+    {% block content %}
+      {% for i in values %} 
+        <p>| ID:{{i.item_id}} | Item name: {{i.item_name}} | </p>
+      {% endfor %}
+    {% endblock %}
     </body>
 
 
