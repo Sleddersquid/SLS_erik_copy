@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SLS Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/style.css">
+  <script src="../static/video_script.js"></script>
+</head>
+<body>
+<div class="login-container">
+  <h1 class="title">Welcome to Spice Logistics Systems</h1>
+  <form>
+    <button class="apple-button" type="submit" onclick="openCamera(); handleVideo(webcam)">
+       Login
+    </button>
+  </form>
+  <video autoplay="true" id="webcam" style="display: none;"></video>
+  <canvas id="canvas"></canvas>
+  
+</div>
+
+
+
+
+<script>
+  var webcamStream;
+
+  function openCamera() {
+    navigator.mediaDevices.getUserMedia({video: true})
+            .then(handleVideo)
+            .catch(videoError);
+  }
+
+  function handleVideo(stream) {
+    webcamStream = stream;
+    document.getElementById('webcam').srcObject = stream;
+    document.getElementById('webcam').style.display = 'block';
+  }
+
+  function videoError(e) {
+    console.log('Error with webcam: ', e);
+  }
+
+</script>
+<script src="../static/video_script.js">
+</script>
+<script>
+  // Get access to the webcam
+navigator.mediaDevices.getUserMedia({ video: true })
+    .then(function(stream) {
+        // Create a video element to display the webcam feed
+        var video = document.createElement('video');
+        video.srcObject = stream;
+        video.play();
+
+        // Continuously capture images from the webcam and send them to the back end
+        setInterval(function() {
+            // Draw the current frame of the webcam feed onto a canvas
+            var canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Get the image data as a blob
+            canvas.toBlob(function(blob) {
+                // Send the image data to the back end over the WebSocket connection
+                socket.send(blob);
+            });
+        }, 1000);
+    })
+    .catch(function(error) {
+        console.error('Error accessing webcam:', error);
+    });</script>
+
+</body>
+</html>
