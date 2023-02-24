@@ -1,0 +1,124 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.7">
+    <link rel="stylesheet" type="text/css" href="../static/user.css">
+    <title>Test page for User</title>
+</head>
+<body>
+  <form action="" method="post"><button type="submit" value="Logut" name="Logut">Logg ut</button></form> 
+    <h1>Velkommen {{usr}}</h1>
+        <div class="laane">
+            <h1 id="dineLaane">Dine Lån</h1>
+            {% if (data.filter(ownedByUser=usr)|length) == 0 %}
+            <h2>Du har ingen lån</h2>
+            {% else %}
+            <table id="retur-table">
+                <tr>
+                    <th onclick="sortTable(0, 'retur-table')">Barcode</th>
+                    <th onclick="sortTable(1, 'retur-table')">Name</th>
+                    <th onclick="sortTable(2, 'retur-table')">Brand</th>
+                    <th onclick="sortTable(3, 'retur-table')">Rom Nr</th>
+		    <th class="irrelevant">Action</th>
+                </tr>
+                {% for data in data %}
+                    {% if data.ownedByUser == usr %}
+                <tr>
+                    <td>{{data.barcode}}</td>
+                    <td>{{data.product_name}}</td>
+                    <td>{{data.product_brand}}</td>
+		    <td>{{data.rom_nr}}</td>
+                    <td><form action="" method="post"><button type="submit" value="{{data.id}}" name="Knapp">retur</button></form></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+	    {% endif%}
+        </div>
+        <div class="retur">
+            <h1 id="inv">Inventar</h1>
+            {% if (data.filter(ownedByUser="")|length) == 0 %}
+            <h2>Ingen produkter i inventar</h2>
+            {% else %}
+            <table id="inv-table">
+                <tr>
+                    <th onclick="sortTable(0, 'inv-table')">Barcode</th>
+                    <th onclick="sortTable(1, 'inv-table')">Name</th>
+                    <th onclick="sortTable(2, 'inv-table')">Brand</th>
+                    <th onclick="sortTable(3, 'inv-table')">Rom Nr</th>
+		    <th class="irrelevant">Action</th>
+                </tr>
+                {% for data in data %}
+                {% if data.ownedByUser == "" %}
+                <tr>
+                    <td>{{data.barcode}}</td>
+                    <td>{{data.product_name}}</td>
+                    <td>{{data.product_brand}}</td>
+		    <td>{{data.rom_nr}}</td>
+                    <td><form action="" method="post"><button type="submit" value="{{data.id}}" name="Knapp" >låne</button></form></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+	    {% endif %}
+        </div>
+    <script>
+  function sortTable(n, idfortable) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById(idfortable);
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.rows;
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      }
+      else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch = true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="viewport" content="width=device-width, initial-scale=0.7">
+  <title>SLS Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" type="text/css" href="../static/styles.css">
+</head>
+  <body>
+<div class="login-container">
+  <h1 class="title">Welcome to Spice Logistics Systems</h1>
+  <form enctype="multipart/form-data" action="#" method="POST">
+    <input type="file" accept="image/*" capture="camera" name="stud" id="stud" class="inputfile"/>
+    <label for="stud">Scan Studentkort</label>
+    {% if error %}
+    <h2 style="color:red;"> Kunne ikke lese strekkoden</h2>
+    {% endif %}
+    <p><input type="submit" value="Login" id="submit" class="apple-button"/></p>
+</form>
+</div>
+</body>
+<script>

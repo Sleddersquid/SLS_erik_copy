@@ -1,0 +1,117 @@
+:root {
+    --main-div-color: rgb(210, 253, 255);
+    --main-table-color: rgb(250, 250, 250);
+    --main-tr-color: rgb(250, 250, 250);
+    --width-table: 92vw;
+}
+
+body {
+    background: rgb(137,70,185);
+    background: linear-gradient(45deg, rgba(137,70,185,1) 10%, rgba(215,50,82,1) 100%);
+    margin: 0;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.retur {
+    margin-top: 5vh;
+}
+.laane, .retur {
+    border: 1px solid pink;
+    border-radius: 30px;
+    width: calc(var(--width-table) + 5vw);
+    background-color: #04FBB2;
+}
+
+#dineLaane, #inv {
+    text-align: left;
+    margin-left: calc(5vw/2);
+}
+
+table, h1, h2 {
+    color: rgb(10, 10, 10);
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 400;
+}
+h1 {
+    text-align: center;
+    margin-top: 2vh;
+}
+h2 {
+    text-align: center;
+    margin-top: 1vw;
+}
+
+th:not(.irrelevant) {
+    cursor: pointer;
+    user-select: none;
+}
+table, td, th {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table{
+    width:var(--width-table);
+    margin-bottom: 5vh;
+    overflow: hidden;
+    border-collapse: collapse;
+}
+
+td, th{
+    text-align: center;
+    padding: 10px;
+    word-wrap: break-word;
+    width: 20%;
+    border: 1px solid black;
+}
+
+/*CSS stylen til denne knappen er tatt fra linken: https://uiverse.io/vikiWayne/slimy-horse-19*/
+
+button {
+    display: block;
+    margin: 0 auto;
+    padding: 1em 2em;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: black;
+    background-color: #04FBB2;
+    transition: all 700ms;
+    font-size: 15px;
+    position: relative;
+    overflow: hidden;
+    outline: 1px solid black;
+  }
+  
+button:hover {
+    color: black;
+    transform: scale(1.1);
+    outline: 1px solid black;
+    box-shadow: 4px 5px 17px -4px black;
+  }
+  
+button::before {
+    content: "";
+    position: absolute;
+    left: -50px;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background-color: #b13c84;
+    transform: skewX(45deg);
+    z-index: -1;
+    transition: width 700ms;
+  }
+  
+button:hover::before {
+    width: 250%;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+}
