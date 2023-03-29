@@ -1,5 +1,5 @@
 
-# Får ikke til å laste ned zbarlight
+# Får ikke til å laste ned zbarlight, så har ikke testa denne koden
 
 import zbarlight
 

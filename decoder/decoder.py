@@ -8,7 +8,7 @@ def decode_barcode(image_file):
     # Decode the barcode
     barcodes = pyzbar.decode(image)
 
-    # Get the barcode data
+    # Get the barcode data and transform string
     for barcode in barcodes:
         data = barcode.data.decode("utf-8")
         return ''.join(filter(str.isdigit, data))
